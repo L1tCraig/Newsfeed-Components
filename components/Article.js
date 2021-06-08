@@ -114,3 +114,48 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+// below will take in an obj with the keys below to be called inside the articleMaker
+function articleMaker({title, date, firstParagraph, secondParagraph, thirdParagraph}) {
+  // creating the tags
+  const article = document.createElement('div')
+  const articleTitle = document.createElement('h2')
+  const articleDate = document.createElement('p')
+  const paraOne = document.createElement('p')
+  const paraTwo = document.createElement('p')
+  const paraThree = document.createElement('p')
+  const expand = document.createElement('span')
+  // adding classes and text content taking in the diff param from the obj argument
+  // article-open is not default so the list will be collapsed by default
+  article.classList.add('article')
+  articleTitle.textContent = title
+  articleDate.classList.add('date')
+  articleDate.textContent = date
+  paraOne.textContent = firstParagraph
+  paraTwo.textContent = secondParagraph
+  paraThree.textContent = thirdParagraph
+  expand.classList.add('expandButton')
+  expand.textContent = '+'
+  // connecting the articles into a list of articles
+  article.appendChild(articleTitle)
+  article.appendChild(articleDate)
+  article.appendChild(paraOne)
+  article.appendChild(paraTwo)
+  article.appendChild(paraThree)
+  article.appendChild(expand)
+  // adding an event listener for a click on the span 'expand' to toggle a class named article-open
+  expand.addEventListener('click', (event) => {
+    article.classList.toggle('article-open')
+  })
+  return article;
+};
+// looping through each instance of data with a .forEach method
+data.forEach(articleInfo => {
+// this is where the list of articles will all be appended. 
+  const articleStart = document.querySelector('.articles')
+  // at each instance of data the information will be used to  run articleMaker
+  const fullArticle = articleMaker(articleInfo)
+  // at each instance the complteted articleMaker will be appended to the start of the page
+  articleStart.appendChild(fullArticle)
+})
+
